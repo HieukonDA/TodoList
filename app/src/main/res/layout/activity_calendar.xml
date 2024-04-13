@@ -4,28 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Tasks">
-    <ScrollView
-        android:id="@+id/scroll_view"
+    tools:context=".Calendar"
+    tools:ignore="ExtraText">
+
+    <!-- Linear layout containing month navigation buttons and day labels -->
+    <LinearLayout
+        android:id="@+id/top_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintTop_toTopOf="parent">
 
-    </ScrollView>
+        <!-- Button for navigating to previous month -->
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#8F7DCF6C"
+            android:onClick="previousMonthAction"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
+        <!-- TextView for displaying the current month and year -->
+        <TextView
+            android:id="@+id/monthYearTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Feb 2021"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"/>
+
+        <!-- Button for navigating to next month -->
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#8F7DCF6C"
+            android:onClick="nextMonthAction"
+            android:text="@string/forward"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Linear layout containing day labels -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/top_layout">
+
+        <!-- Day labels -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SUN"
+            android:textColor="@color/gray"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
+        <!-- Repeat for other days of the week -->
+
+    </LinearLayout>
+
+    <!-- RecyclerView for displaying the calendar -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendarRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/top_layout"
+        app:layout_constraintBottom_toTopOf="@id/bottom_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- CoordinatorLayout for bottom app bar -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scroll_view">
+        app:layout_constraintBottom_toBottomOf="parent">
 
-
+        <!-- BottomAppBar -->
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/app_Bar"
             android:layout_width="match_parent"
@@ -36,12 +102,14 @@
             app:fabCradleRoundedCornerRadius="50dp"
             app:fabCradleVerticalOffset="6dp">
 
+            <!-- Menu items -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="0dp">
 
+                <!-- Task button -->
                 <LinearLayout
                     android:id="@+id/task_btn"
                     android:layout_width="0dp"
@@ -69,6 +137,7 @@
 
                 </LinearLayout>
 
+                <!-- Calendar button -->
                 <LinearLayout
                     android:id="@+id/calendar_btn"
                     android:layout_width="0dp"
@@ -96,6 +165,7 @@
 
                 </LinearLayout>
 
+                <!-- Avatar button -->
                 <LinearLayout
                     android:id="@+id/avatar_btn"
                     android:layout_width="0dp"
@@ -123,13 +193,9 @@
 
                 </LinearLayout>
 
-
-
             </LinearLayout>
         </com.google.android.material.bottomappbar.BottomAppBar>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
